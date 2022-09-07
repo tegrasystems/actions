@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      string-output: ${{ steps.git-diff-output}}
+      string-output: ${{ steps.git-diff-output.output }}
 
     steps:
       - uses: actions/checkout@v2
