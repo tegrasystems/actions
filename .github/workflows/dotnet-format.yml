@@ -32,6 +32,9 @@ jobs:
       - run: dotnet-format ${{ inputs.project }}
       - id: changes
         run: |
-          git diff >> diff.patch
-          echo "::set-output name=c::$(cat diff.patch)"
+          GIT_DIFF=$(git diff)
+          GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
+          GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
+          GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
+          echo "::set-output name=c::$GIT_DIFF"
       - run: echo ${{ steps.changes.outputs.c }}
