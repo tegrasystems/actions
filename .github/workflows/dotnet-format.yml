@@ -30,12 +30,12 @@ jobs:
       - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
       - run: dotnet tool install -g dotnet-format
       - run: dotnet-format ${{ inputs.project }}
-      - uses: actions/github-script@v5
-        id: set-output
-        with:
-          script: |
-            GIT_DIFF=$(git diff)
-            core.setOutput("c", `${{ GIT_DIFF }}`)
+      # - uses: actions/github-script@v5
+      #   id: set-output
+      #   with:
+      #     script: |
+      #       GIT_DIFF=$(git diff)
+      #       core.setOutput("c", `${{ GIT_DIFF }}`)
       - id: changes
         # run: |
         #   GIT_DIFF=$(git diff)
