@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      changes: ${{ steps.changes.c }}
+      changes: ${{ steps.set-output.c }}
 
     steps:
       - uses: actions/checkout@v2
@@ -30,11 +30,28 @@ jobs:
       - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
       - run: dotnet tool install -g dotnet-format
       - run: dotnet-format ${{ inputs.project }}
+      - uses: actions/github-script@v5
+        id: set-output
+        with:
+          script: |
+            GIT_DIFF=$(git diff)
+            core.setOutput("c", `${{ GIT_DIFF }}`)
       - id: changes
+        # run: |
+        #   GIT_DIFF=$(git diff)
+        #   GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
+        #   GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
+        #   GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
+        #   echo "::set-output name=c::$GIT_DIFF"
         run: |
-          GIT_DIFF=$(git diff)
-          GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
-          GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
-          GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=c::$GIT_DIFF"
+          MY_STRING=$(cat << EOF
+          first line
+          second line
+          third line
+          EOF
+          )
+          MY_STRING="${MY_STRING//'%'/'%25'}"
+          MY_STRING="${MY_STRING//$'\n'/'%0A'}"
+          MY_STRING="${MY_STRING//$'\r'/'%0D'}"
+          echo "::set-output name=c::$MY_STRING"
       - run: echo ${{ steps.changes.outputs.c }}
