@@ -24,6 +24,8 @@ on:
 
 jobs:
   publish:
+    runs-on: windows-latest
+    
     steps:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
