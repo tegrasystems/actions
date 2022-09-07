@@ -19,7 +19,7 @@ jobs:
     name: "Formatting ${{ inputs.project-name }}"
     runs-on: ubuntu-latest
     outputs:
-      changes: ${{ steps.set-output.output }}
+      changes: ${{ steps.changes.output }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -36,4 +36,4 @@ jobs:
           GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
           GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
           GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=output::hello"
+          echo "::set-output name=output::$GIT_DIFF"
