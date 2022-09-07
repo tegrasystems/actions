@@ -1,7 +1,7 @@
 name: "[.NET]Publish project"
 
 on:
-  workflow_dispatch:
+  workflow_call:
    inputs:
       project-path:
         required: true
@@ -16,15 +16,6 @@ on:
         required: false
         type: string
         default: "Release"
-  # workflow_call:
-  #   inputs:
-  #     project-path:
-  #       required: true
-  #       type: string
-  #     configuration:
-  #       required: false
-  #       type: string
-  #       default: ""
 
 
 
