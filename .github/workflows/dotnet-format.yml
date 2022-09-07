@@ -36,4 +36,4 @@ jobs:
           GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
           GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
           GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=output::$GIT_DIFF"
+          echo "::set-output name=output::hello"
