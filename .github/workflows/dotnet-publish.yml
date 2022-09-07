@@ -6,10 +6,16 @@ on:
       project-path:
         required: true
         type: string
+      publishprofile:
+        required: true
+        type: string
+      password:
+        required: true
+        type: string
       configuration:
         required: false
         type: string
-        default: ""
+        default: "Release"
   # workflow_call:
   #   inputs:
   #     project-path:
@@ -29,5 +35,5 @@ jobs:
     steps:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
-      - name: Build and deploy Application
-        run: echo msbuild ${{ inputs.project-path }} {{ '' if ${{ inputs.configuration}} == "" else '-property:Configuration=${{ inputs.configuration }}'}}
+      - name: Build and deploy Application        
+        run: msbuild ${{ inputs.project-path }} -property:Configuration=${{ inputs.configuration }} /restore /p:DeployOnBuild=true /p:PublishProfile=${{ inputs.publishprofile }} /p:Password=${{ inputs.password }}
