@@ -32,3 +32,4 @@ jobs:
       - run: dotnet-format ${{ inputs.project }}
       - id: changes
         run: echo "::set-output name=c::$(git diff)"
+      - run: echo ${{ outputs.changes }}
