@@ -1,0 +1,31 @@
+name: "[.NET]Publish project"
+
+on:
+  workflow_dispatch:
+   inputs:
+      project-path:
+        required: true
+        type: string
+      configuration:
+        required: false
+        type: string
+        default: ""
+  # workflow_call:
+  #   inputs:
+  #     project-path:
+  #       required: true
+  #       type: string
+  #     configuration:
+  #       required: false
+  #       type: string
+  #       default: ""
+
+
+
+jobs:
+  publish:
+    steps:
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+      - name: Build and deploy Application
+        run: echo msbuild ${{ inputs.project-path }} {{ '' if ${{ inputs.configuration}} == "" else '-property:Configuration=${{ inputs.configuration }}'}}
