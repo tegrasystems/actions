@@ -1,26 +1,19 @@
 name: "[.NET]Code Formatting"
 
-on:
-  workflow_call:
-    inputs:
-      project:
-        required: true
-        type: string
-      project-name:
-        required: true
-        type: string
-    outputs:
-      changes:
-        description: "Git Diff Changes"
-        value: ${{ jobs.format.outputs.changes }}
+inputs:
+  project:
+    required: true
+    type: string
+  project-name:
+    required: true
+    type: string
+outputs:
+  changes:
+    description: "Git Diff Changes"
+    value: ${{ jobs.format.outputs.changes }}
 
-jobs:
-  format:
-    name: "Formatting ${{ inputs.project-name }}"
-    runs-on: ubuntu-latest
-    outputs:
-      changes: 
-        value: ${{ steps.changes.c }}
+runs:
+  using: "composite"
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -37,4 +30,4 @@ jobs:
           GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
           GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
           GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=c::$GIT_DIFF"
+          echo "::set-output name=changes::$GIT_DIFF"
