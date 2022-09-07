@@ -54,4 +54,4 @@ jobs:
           MY_STRING="${MY_STRING//$'\n'/'%0A'}"
           MY_STRING="${MY_STRING//$'\r'/'%0D'}"
           echo "::set-output name=c::$MY_STRING"
-      - run: echo ${{ steps.changes.outputs.c }}
+      - run: echo "${{ steps.changes.outputs.c }}"
