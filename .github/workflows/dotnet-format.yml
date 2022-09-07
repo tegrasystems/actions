@@ -6,9 +6,12 @@ on:
       project:
         required: true
         type: string
+      project-name:
+        required: true
+        type: string
 jobs:
   format:
-    name: "Formatting ${{ inputs.project }}"
+    name: "Formatting ${{ inputs.project-name }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
