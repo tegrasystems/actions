@@ -31,5 +31,7 @@ jobs:
       - run: dotnet tool install -g dotnet-format
       - run: dotnet-format ${{ inputs.project }}
       - id: changes
-        run: echo "::set-output name=c::$(git diff)"
+        run: |
+          git diff >> diff.patch
+          echo "::set-output name=c::$(cat diff.patch)"
       - run: echo ${{ steps.changes.outputs.c }}
