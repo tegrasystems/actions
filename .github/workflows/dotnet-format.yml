@@ -30,17 +30,12 @@ jobs:
       - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
       - run: dotnet tool install -g dotnet-format
       - run: dotnet-format ${{ inputs.project }}
-      # - uses: actions/github-script@v5
-      #   id: set-output
-      #   with:
-      #     script: |
-      #       GIT_DIFF=$(git diff)
-      #       core.setOutput("c", `${{ GIT_DIFF }}`)
       - id: changes
         run: |
-          GIT_DIFF=$(git diff)
+          git diff >> output.patch
+          GIT_DIFF=$(cat output.patch)
           GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
           GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
           GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=c::\"$GIT_DIFF\""
+          echo "::set-output name=c::$GIT_DIFF"
       - run: echo "${{ steps.changes.outputs.c }}"
