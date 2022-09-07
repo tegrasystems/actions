@@ -9,7 +9,7 @@ on:
       project-name:
         required: true
         type: string
-    ouputs:
+    outputs:
       git-diff-string:
         value: ${{ jobs.format.outputs.string-output }}
 
@@ -18,7 +18,7 @@ jobs:
     name: "Formatting ${{ inputs.project-name }}"
     runs-on: ubuntu-latest
 
-    ouputs:
+    outputs:
       string-output: ${{ steps.git-diff-output}}
 
     steps:
