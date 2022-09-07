@@ -11,16 +11,15 @@ on:
         type: string
     outputs:
       changes:
+        description: "Git Diff Changes"
         value: ${{ jobs.format.outputs.changes }}
 
 jobs:
   format:
     name: "Formatting ${{ inputs.project-name }}"
     runs-on: ubuntu-latest
-
     outputs:
-      changes: ${{ steps.set-output.c }}
-
+      changes: ${{ steps.set-output.output }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -37,5 +36,4 @@ jobs:
           GIT_DIFF="${GIT_DIFF//'%'/'%25'}"
           GIT_DIFF="${GIT_DIFF//$'\n'/'%0A'}"
           GIT_DIFF="${GIT_DIFF//$'\r'/'%0D'}"
-          echo "::set-output name=c::$GIT_DIFF"
-      - run: echo "${{ steps.changes.outputs.c }}"
+          echo "::set-output name=output::$GIT_DIFF"
