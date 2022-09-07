@@ -16,6 +16,10 @@ on:
         required: false
         type: string
         default: "Release"
+      additional-arguments:
+        required: false
+        type: string
+        default: ""
 
 
 
@@ -27,4 +31,4 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
       - name: Build and deploy Application        
-        run: msbuild ${{ inputs.project-path }} -property:Configuration=${{ inputs.configuration }} /restore /p:DeployOnBuild=true /p:PublishProfile=${{ inputs.publishprofile }} /p:Password=${{ inputs.password }}
+        run: msbuild ${{ inputs.project-path }} -property:Configuration=${{ inputs.configuration }} /restore /p:DeployOnBuild=true /p:PublishProfile=${{ inputs.publishprofile }} /p:Password=${{ inputs.password }} ${{ inputs.additional-arguments }}
