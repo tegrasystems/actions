@@ -7,6 +7,9 @@ inputs:
   project-name:
     required: true
     type: string
+  nuget-sources:
+    required: false
+    type: string
 outputs:
   changes:
     description: "Git Diff Changes"
@@ -20,13 +23,12 @@ runs:
       with:
         dotnet-version: 6.0.x
     - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
-    - run: dotnet tool install -g dotnet-format
+    - name: Restore
+      run: dotnet restore -s ${{ inputs.nuget-sources }} -s https://api.nuget.org/v3/index.json /property:Configuration=ReleaseNoMaui
       shell: bash
-    - run: dotnet-format ${{ inputs.project }}
-      if: always()
+    - run: dotnet format ${{ inputs.project }} --no-restore
       shell: bash
     - id: changes
-      if: always()
       run: |
         git diff >> output.patch
         GIT_DIFF=$(cat output.patch)
