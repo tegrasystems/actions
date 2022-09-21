@@ -10,6 +10,10 @@ inputs:
   nuget-sources:
     required: false
     type: string
+  export-output:
+    required: false
+    type: boolean
+    default: 'true'
 outputs:
   changes:
     description: "Git Diff Changes"
@@ -29,6 +33,7 @@ runs:
     - run: dotnet format ${{ inputs.project }} --no-restore
       shell: bash
     - id: changes
+      if: ${{ inputs.export-output == 'true' }}
       run: |
         git diff >> output.patch
         GIT_DIFF=$(cat output.patch)
