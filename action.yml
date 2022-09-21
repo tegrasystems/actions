@@ -14,6 +14,9 @@ inputs:
     required: false
     type: boolean
     default: 'true'
+  excluded-projects:
+    required: false
+    type: string
 outputs:
   changes:
     description: "Git Diff Changes"
@@ -31,6 +34,10 @@ runs:
       run: dotnet restore -s ${{ inputs.nuget-sources }} -s https://api.nuget.org/v3/index.json /property:Configuration=ReleaseNoMaui
       shell: bash
     - run: dotnet format ${{ inputs.project }} --no-restore
+      if: ${{ inputs.excluded-projects == '' }}
+      shell: bash
+      - run: dotnet format ${{ inputs.project }} --exclude "${{ inputs.excluded-projects }}"  --no-restore
+      if: ${{ inputs.excluded-projects != '' }}
       shell: bash
     - id: changes
       if: ${{ inputs.export-output == 'true' }}

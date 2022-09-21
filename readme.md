@@ -19,6 +19,7 @@ jobs:
                 project-name: PROJECT_NAME
                 nuget-sources: <source>
                 export-output: 'true'
+                excluded-projects: "<project1> <project2>"
 ```
 
 ## Parameters
@@ -30,6 +31,7 @@ jobs:
 | project-name | Name of the project, will be displayed as name of job  | string |
 | nuget-sources | (optional) NuGet Sources to restore (Limited to 1 NuGet source) | string |
 | export-output | (optional) Whether the changes should be in the output (Default: true) | boolean |
+| excluded-projects | (optional) Projects to exclude while formatting | string |
 
 ### Outputs
 | Name | Description | Type |
