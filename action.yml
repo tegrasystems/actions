@@ -20,11 +20,13 @@ runs:
       with:
         dotnet-version: 6.0.x
     - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
-    # - run: dotnet tool install -g dotnet-format
-    #   shell: bash
-    - run: dotnet format ${{ inputs.project }}
+    - run: dotnet tool install -g dotnet-format
+      shell: bash
+    - run: dotnet-format ${{ inputs.project }}
+      if: always()
       shell: bash
     - id: changes
+      if: always()
       run: |
         git diff >> output.patch
         GIT_DIFF=$(cat output.patch)
