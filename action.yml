@@ -22,7 +22,7 @@ runs:
     - uses: xt0rted/dotnet-format-problem-matcher@v1.2.0
     # - run: dotnet tool install -g dotnet-format
     #   shell: bash
-    - run: dotnetformat ${{ inputs.project }}
+    - run: dotnet format ${{ inputs.project }}
       shell: bash
     - id: changes
       run: |
