@@ -36,7 +36,7 @@ runs:
     - run: dotnet format ${{ inputs.project }} --no-restore
       if: ${{ inputs.excluded-projects == '' }}
       shell: bash
-      - run: dotnet format ${{ inputs.project }} --exclude "${{ inputs.excluded-projects }}"  --no-restore
+    - run: dotnet format ${{ inputs.project }} --exclude "${{ inputs.excluded-projects }}"  --no-restore
       if: ${{ inputs.excluded-projects != '' }}
       shell: bash
     - id: changes
